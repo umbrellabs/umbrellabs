@@ -22,6 +22,16 @@ export function Contact() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState('');
 
+  function updateField<Key extends keyof FormState>(field: Key, value: FormState[Key]) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors.length > 0) {
+      setErrors([]);
+    }
+    if (success) {
+      setSuccess('');
+    }
+  }
+
   const links = useMemo(
     () => [
       { label: 'ibo.umbrella@gmail.com', href: 'mailto:ibo.umbrella@gmail.com', icon: Mail },
@@ -96,40 +106,85 @@ export function Contact() {
           <input type="hidden" name="form-name" value="contact" />
           <motion.div variants={fadeUp}>
             <label htmlFor="name" className="mb-1 block text-sm text-text-secondary">Name</label>
-            <input name="name" id="name" type="text" value={form.name} onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input
+              name="name"
+              id="name"
+              type="text"
+              value={form.name}
+              onChange={(event) => updateField('name', event.target.value)}
+              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
+              required
+            />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="email" className="mb-1 block text-sm text-text-secondary">Email</label>
-            <input name="email" id="email" type="email" value={form.email} onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input
+              name="email"
+              id="email"
+              type="email"
+              value={form.email}
+              onChange={(event) => updateField('email', event.target.value)}
+              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
+              required
+            />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="projectType" className="mb-1 block text-sm text-text-secondary">Project Type</label>
-            <input name="projectType" id="projectType" type="text" value={form.projectType} onChange={(event) => setForm((prev) => ({ ...prev, projectType: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input
+              name="projectType"
+              id="projectType"
+              type="text"
+              value={form.projectType}
+              onChange={(event) => updateField('projectType', event.target.value)}
+              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
+              required
+            />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="message" className="mb-1 block text-sm text-text-secondary">Message</label>
-            <textarea name="message" id="message" rows={5} value={form.message} onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))} className="w-full resize-none rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <textarea
+              name="message"
+              id="message"
+              rows={5}
+              value={form.message}
+              onChange={(event) => updateField('message', event.target.value)}
+              className="w-full resize-none rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
+              required
+            />
           </motion.div>
 
-          {errors.length > 0 ? (
-            <motion.ul variants={fadeUp} className="space-y-1 text-sm text-red-300" aria-live="polite">
-              {errors.map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </motion.ul>
-          ) : null}
+          <motion.div variants={fadeUp} className="space-y-3" aria-live="polite">
+            {submitting ? (
+              <div className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
+                Sending your message, please wait...
+              </div>
+            ) : null}
 
-          {success ? (
-            <motion.p variants={fadeUp} className="rounded-lg border border-highlight/30 bg-highlight/10 px-3 py-2 text-sm text-highlight" aria-live="polite">
-              {success}
-            </motion.p>
-          ) : null}
+            {errors.length > 0 ? (
+              <div className="rounded-xl border border-red-400/50 bg-red-500/10 p-4 text-sm text-red-100">
+                <p className="font-semibold">Please fix the following issues:</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5">
+                  {errors.map((error) => (
+                    <li key={error}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {success ? (
+              <div className="rounded-xl border border-emerald-400/50 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                {success}
+              </div>
+            ) : null}
+          </motion.div>
 
           <motion.div variants={fadeUp}>
-            <Button type="submit" className="w-full">{submitting ? 'Sending...' : 'Send Inquiry'}</Button>
+            <Button type="submit" className="w-full" disabled={submitting}>
+              {submitting ? 'Sending...' : 'Send Inquiry'}
+            </Button>
           </motion.div>
         </motion.form>
       </div>
