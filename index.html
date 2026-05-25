@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Umbrella Labs | Modern Software Development Agency</title>
+    <meta
+      name="description"
+      content="Umbrella Labs builds modern web applications, mobile apps, APIs, and custom software solutions using modern technologies."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Umbrella Labs | Modern Software Development Agency" />
+    <meta
+      property="og:description"
+      content="Umbrella Labs builds modern web applications, mobile apps, APIs, and custom software solutions using modern technologies."
+    />
+    <meta property="og:url" content="https://umbrellabs.dev" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Umbrella Labs | Modern Software Development Agency" />
+    <meta
+      name="twitter:description"
+      content="Umbrella Labs builds modern web applications, mobile apps, APIs, and custom software solutions using modern technologies."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Umbrella Labs",
+        "description": "Umbrella Labs builds modern web applications, mobile apps, APIs, and custom software solutions using modern technologies.",
+        "url": "https://umbrellabs.dev",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "ibo.umbrella@gmail.com",
+          "contactType": "customer support"
+        },
+        "sameAs": ["https://github.com/IBO-Umbrel", "https://ibo-umbrel.netlify.app/"]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Netlify form registration for SPA/AJAX submissions -->
+    <form name="contact" data-netlify="true" netlify style="display:none">
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="projectType" />
+      <textarea name="message"></textarea>
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
