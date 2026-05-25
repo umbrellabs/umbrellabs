@@ -91,27 +91,27 @@ export function Contact() {
           </motion.div>
         </motion.div>
 
-        <motion.form name="contact" data-netlify="true" onSubmit={onSubmit} className="glass-panel space-y-4 rounded-2xl p-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerChildren(0.05)} noValidate>
+        <motion.form name="contact" method="POST" action="/" data-netlify="true" onSubmit={onSubmit} className="glass-panel space-y-4 rounded-2xl p-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerChildren(0.05)} noValidate>
           {/* Hidden input required for Netlify form identification */}
           <input type="hidden" name="form-name" value="contact" />
           <motion.div variants={fadeUp}>
             <label htmlFor="name" className="mb-1 block text-sm text-text-secondary">Name</label>
-            <input id="name" type="text" value={form.name} onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input name="name" id="name" type="text" value={form.name} onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="email" className="mb-1 block text-sm text-text-secondary">Email</label>
-            <input id="email" type="email" value={form.email} onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input name="email" id="email" type="email" value={form.email} onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="projectType" className="mb-1 block text-sm text-text-secondary">Project Type</label>
-            <input id="projectType" type="text" value={form.projectType} onChange={(event) => setForm((prev) => ({ ...prev, projectType: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <input name="projectType" id="projectType" type="text" value={form.projectType} onChange={(event) => setForm((prev) => ({ ...prev, projectType: event.target.value }))} className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
           </motion.div>
 
           <motion.div variants={fadeUp}>
             <label htmlFor="message" className="mb-1 block text-sm text-text-secondary">Message</label>
-            <textarea id="message" rows={5} value={form.message} onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))} className="w-full resize-none rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
+            <textarea name="message" id="message" rows={5} value={form.message} onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))} className="w-full resize-none rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary" required />
           </motion.div>
 
           {errors.length > 0 ? (
