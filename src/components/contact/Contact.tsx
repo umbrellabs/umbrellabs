@@ -90,7 +90,7 @@ export function Contact() {
 
           <div className="mt-4 flex flex-col gap-3">
             <a
-              href="https://t.me/Umberlla_Lab_Bot"
+              href="https://t.me/umbrella_labs"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary pulse-glow justify-center text-center max-w-[320px]"
