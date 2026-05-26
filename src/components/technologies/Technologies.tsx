@@ -1,23 +1,47 @@
-import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/ui/SectionHeader';
-import { fadeUp, hoverLift, scaleIn, staggerChildren } from '@/lib/animations';
-import { technologies } from '@/lib/constants';
+import { SectionReveal } from '@/components/ui/SectionReveal';
+
+const tools = [
+  "vite",
+  'React',
+  'Next.js',
+  'Node.js',
+  'Supabase',
+  'JavaScript',
+  'TypeScript',
+  'Python',
+  'Java',
+  'Spring Boot',
+  'Tauri',
+  'Docker',
+  "Supabase",
+  "PostgreSQL",
+  "MongoDB",
+  "Redis",
+  "React Native",
+  "Expo",
+] as const;
 
 export function Technologies() {
   return (
-    <section id="stack" className="px-5 py-24 md:px-8">
-      <div className="mx-auto w-full max-w-7xl">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.35 }} variants={fadeUp}>
-          <SectionHeader eyebrow="Technology" title="Modern Stack For Fast, Reliable Delivery" description="Technologies selected for maintainability, performance, and smooth product iteration." />
-        </motion.div>
+    <section id="stack" className="section bg-bg-2">
+      <div className="section-inner">
+        <SectionReveal>
+          <div className="section-label">STACK</div>
+          <h2 className="section-title mb-6">
+            Our <span className="text-primary font-bold">tools</span>
+          </h2>
+        </SectionReveal>
 
-        <motion.div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" variants={staggerChildren(0.05)} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-          {technologies.map((tech) => (
-            <motion.div key={tech} variants={scaleIn} whileHover={hoverLift} className="rounded-2xl border border-white/10 bg-surface/70 px-4 py-5 text-center text-sm font-medium shadow-soft">
-              <span className="bg-primary-gradient bg-clip-text text-transparent">{tech}</span>
-            </motion.div>
+        <div className="flex flex-wrap gap-2 mt-8">
+          {tools.map((tool, idx) => (
+            <SectionReveal key={tool} delay={0.02 * idx}>
+              <div className="card px-4 py-2.5 font-mono text-[0.65rem] tracking-[0.04em] rounded bg-bg-card border border-border transition-colors hover:border-primary-dark">
+                <span className="text-text-muted mr-1.5">//</span>
+                {tool}
+              </div>
+            </SectionReveal>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

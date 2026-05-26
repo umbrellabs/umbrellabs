@@ -5,25 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#06070A',
-        surface: '#0F1117',
-        primary: '#5B8CFF',
-        secondary: '#7A5CFA',
-        highlight: '#4ADEDE',
+        bg: 'var(--bg)',
+        surface: 'var(--bg-2)',
+        'bg-card': 'var(--bg-card)',
+        primary: 'var(--red)',
+        'primary-bright': 'var(--red-bright)',
+        'primary-dark': 'var(--red-dark)',
         text: {
-          primary: '#FFFFFF',
-          secondary: '#A0A8B8',
+          primary: 'var(--text)',
+          secondary: 'var(--text-dim)',
+          muted: 'var(--text-muted)',
         },
+        border: 'var(--border)',
       },
-      boxShadow: {
-        glow: '0 0 50px rgba(91, 140, 255, 0.25)',
-        soft: '0 10px 30px rgba(0, 0, 0, 0.35)',
-      },
-      backgroundImage: {
-        'primary-gradient': 'linear-gradient(135deg, #5B8CFF 0%, #7A5CFA 100%)',
-        'accent-glow': 'linear-gradient(90deg, rgba(91,140,255,.25), rgba(74,222,222,.15))',
-        'radial-mesh':
-          'radial-gradient(circle at 20% 20%, rgba(91,140,255,0.2), transparent 40%), radial-gradient(circle at 80% 10%, rgba(122,92,250,0.18), transparent 45%), radial-gradient(circle at 50% 80%, rgba(74,222,222,0.12), transparent 35%)',
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
     },
   },

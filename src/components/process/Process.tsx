@@ -1,26 +1,71 @@
-import { motion } from 'framer-motion';
-import { SectionHeader } from '@/components/ui/SectionHeader';
-import { fadeUp, staggerChildren } from '@/lib/animations';
-import { processSteps } from '@/lib/constants';
+import { SectionReveal } from '@/components/ui/SectionReveal';
+
+interface ProcessStep {
+  num: string;
+  title: string;
+  desc: string;
+}
+
+const pipelineSteps: ProcessStep[] = [
+  {
+    num: '01',
+    title: 'APPLICATION',
+    desc: "Describe your idea or share what you've built. We review everything personally.",
+  },
+  {
+    num: '02',
+    title: 'EVALUATION',
+    desc: 'AI-assisted analysis — market, feasibility, potential. Then our senior team takes a look.',
+  },
+  {
+    num: '03',
+    title: 'ACCELERATION',
+    desc: 'Selected projects get the full Umbrella infrastructure — AI agents, engineering, design. Production speed.',
+  },
+  {
+    num: '04',
+    title: 'LAUNCH',
+    desc: 'Deployment in days, not months. We ship production-ready products, not prototypes.',
+  },
+];
 
 export function Process() {
   return (
-    <section id="process" className="px-5 py-24 md:px-8">
-      <div className="mx-auto w-full max-w-7xl">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
-          <SectionHeader eyebrow="Workflow" title="A Structured Development Process" description="Clear steps from discovery to deployment to keep the project focused, measurable, and predictable." />
-        </motion.div>
+    <section id="process" className="section bg-bg">
+      <div className="section-inner">
+        <SectionReveal>
+          <div className="section-label">HOW IT WORKS</div>
+          <h2 className="section-title mb-8">
+            The <span className="text-primary font-bold">pipeline</span>
+          </h2>
+        </SectionReveal>
 
-        <motion.ol className="relative mt-12 grid gap-4 md:grid-cols-5" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerChildren(0.08)}>
-          <div className="absolute left-0 right-0 hidden h-px bg-white/15 md:block" style={{ top: '-20px' }} aria-hidden />
-          {processSteps.map((step, index) => (
-            <motion.li key={step.title} variants={fadeUp} className="relative rounded-2xl border border-white/10 bg-surface/60 p-5">
-              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-primary/10 text-sm font-semibold text-primary">{index + 1}</span>
-              <h3 className="text-lg font-semibold">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-text-secondary">{step.description}</p>
-            </motion.li>
+        <div className="flex flex-col">
+          {pipelineSteps.map((step, idx) => (
+            <SectionReveal key={step.num} delay={0.08 * idx}>
+              <div className="py-6 border-t border-border relative">
+                {idx === 0 && (
+                  <div className="absolute top-0 left-0 w-10 h-[2px] bg-primary" />
+                )}
+                <div className="flex gap-4 items-start">
+                  {/* Step Number */}
+                  <div className="font-mono text-2xl font-black text-border leading-none shrink-0 w-11">
+                    {step.num}
+                  </div>
+                  {/* Step Info */}
+                  <div>
+                    <h3 className="font-mono text-[0.7rem] tracking-[0.12em] text-primary mb-1.5">
+                      {step.title}
+                    </h3>
+                    <p className="text-text-secondary text-[0.82rem] leading-relaxed max-w-[600px]">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </SectionReveal>
           ))}
-        </motion.ol>
+        </div>
       </div>
     </section>
   );

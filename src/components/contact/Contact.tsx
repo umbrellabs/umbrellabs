@@ -1,10 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import { Github, Globe, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { SectionHeader } from '@/components/ui/SectionHeader';
-import { fadeUp, staggerChildren } from '@/lib/animations';
+import { SectionReveal } from '@/components/ui/SectionReveal';
 import { sendContact, validatePayload } from '@/lib/contactApi';
 
 interface FormState {
@@ -31,15 +27,6 @@ export function Contact() {
       setSuccess('');
     }
   }
-
-  const links = useMemo(
-    () => [
-      { label: 'ibo.umbrella@gmail.com', href: 'mailto:ibo.umbrella@gmail.com', icon: Mail },
-      { label: 'github.com/IBO-Umbrel', href: 'https://github.com/IBO-Umbrel', icon: Github },
-      { label: 'ibo-umbrel.netlify.app', href: 'https://ibo-umbrel.netlify.app/', icon: Globe },
-    ],
-    [],
-  );
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -71,122 +58,186 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="px-5 py-24 md:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerChildren()}>
-          <motion.div variants={fadeUp}>
-            <SectionHeader
-              eyebrow="Contact"
-              title="Let's Build Something Great"
-              description="Share your idea, product direction, or technical challenge. Umbrella Labs is open to focused project discussions."
-            />
-          </motion.div>
+    <section id="contact" className="section bg-bg-2 relative">
+      {/* Floating background particles */}
+      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        {Array.from({ length: 6 }).map((_, r) => (
+          <div
+            key={r}
+            className="particle"
+            style={{
+              left: `${15 + (12 * r) % 70}%`,
+              top: `${10 + (18 * r) % 75}%`,
+              animationDelay: `${0.4 * r}s`,
+              animationDuration: `${9 + (r % 3) * 2.5}s`,
+            }}
+          />
+        ))}
+      </div>
 
-          <motion.div variants={fadeUp} className="mt-8 space-y-3">
-            {links.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target={item.href.startsWith('http') ? '_blank' : undefined}
-                  rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-                  className="glass-panel flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-text-secondary transition hover:text-white"
-                >
-                  <Icon size={16} className="text-primary" />
-                  <span>{item.label}</span>
-                </a>
-              );
-            })}
-          </motion.div>
-        </motion.div>
+      <div className="section-inner grid gap-10 lg:grid-cols-2 relative z-10">
+        {/* Left Column: Heading, description, and status blocks */}
+        <SectionReveal className="flex flex-col">
+          <div className="section-label">CONTACT</div>
+          <h2 className="section-title mb-4">
+            Have an idea?
+            <br />
+            <span className="text-primary font-bold">Let's talk.</span>
+          </h2>
+          <p className="text-text-secondary text-sm leading-[1.7] mb-6 max-w-[420px]">
+            Tell us what you want to build. If we see potential, we'll figure out how to make it happen together.
+          </p>
 
-        <motion.form name="contact" method="POST" action="/" data-netlify="true" onSubmit={onSubmit} className="glass-panel space-y-4 rounded-2xl p-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerChildren(0.05)} noValidate>
-          {/* Hidden input required for Netlify form identification */}
-          <input type="hidden" name="form-name" value="contact" />
-          <motion.div variants={fadeUp}>
-            <label htmlFor="name" className="mb-1 block text-sm text-text-secondary">Name</label>
-            <input
-              name="name"
-              id="name"
-              type="text"
-              value={form.name}
-              onChange={(event) => updateField('name', event.target.value)}
-              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
-              required
-            />
-          </motion.div>
+          <div className="mt-4 flex flex-col gap-3">
+            <a
+              href="https://t.me/Umberlla_Lab_Bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary pulse-glow justify-center text-center max-w-[320px]"
+            >
+              WRITE TO US →
+            </a>
+          </div>
 
-          <motion.div variants={fadeUp}>
-            <label htmlFor="email" className="mb-1 block text-sm text-text-secondary">Email</label>
-            <input
-              name="email"
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={(event) => updateField('email', event.target.value)}
-              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
-              required
-            />
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <label htmlFor="projectType" className="mb-1 block text-sm text-text-secondary">Project Type</label>
-            <input
-              name="projectType"
-              id="projectType"
-              type="text"
-              value={form.projectType}
-              onChange={(event) => updateField('projectType', event.target.value)}
-              className="w-full rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
-              required
-            />
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <label htmlFor="message" className="mb-1 block text-sm text-text-secondary">Message</label>
-            <textarea
-              name="message"
-              id="message"
-              rows={5}
-              value={form.message}
-              onChange={(event) => updateField('message', event.target.value)}
-              className="w-full resize-none rounded-xl border border-white/15 bg-bg/70 px-4 py-3 text-sm outline-none transition focus:border-primary"
-              required
-            />
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="space-y-3" aria-live="polite">
-            {submitting ? (
-              <div className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
-                Sending your message, please wait...
+          <div className="mt-10 grid grid-cols-2 gap-4 max-w-[360px]">
+            <div>
+              <div className="font-mono text-[0.55rem] tracking-[0.12em] text-text-muted mb-1.5 uppercase">
+                LOCATION
               </div>
-            ) : null}
-
-            {errors.length > 0 ? (
-              <div className="rounded-xl border border-red-400/50 bg-red-500/10 p-4 text-sm text-red-100">
-                <p className="font-semibold">Please fix the following issues:</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5">
-                  {errors.map((error) => (
-                    <li key={error}>{error}</li>
-                  ))}
-                </ul>
+              <span className="text-xs text-text-primary">Global / Remote</span>
+            </div>
+            <div>
+              <div className="font-mono text-[0.55rem] tracking-[0.12em] text-text-muted mb-1.5 uppercase">
+                STATUS
               </div>
-            ) : null}
+              <span className="text-xs text-primary flex items-center gap-1.5">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-[blink_1.4s_step-end_infinite]" />
+                Open for projects
+              </span>
+            </div>
+          </div>
+        </SectionReveal>
 
-            {success ? (
-              <div className="rounded-xl border border-emerald-400/50 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
-                {success}
+        {/* Right Column: Cyber form */}
+        <SectionReveal delay={0.15} className="w-full">
+          <form
+            name="contact"
+            method="POST"
+            action="/"
+            data-netlify="true"
+            onSubmit={onSubmit}
+            className="card rounded-lg overflow-hidden border border-border"
+            noValidate
+          >
+            {/* Netlify identifier */}
+            <input type="hidden" name="form-name" value="contact" />
+
+            {/* Header bar */}
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#0f0f0f] border-b border-border">
+              <div className="w-2 h-2 rounded-full bg-primary" />
+              <span className="font-mono text-[0.6rem] tracking-[0.1em] text-text-dim uppercase">
+                UMBRELLA TRANSMITTER v1.0 — SEND MESSAGE
+              </span>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 flex flex-col gap-4">
+              <div>
+                <label htmlFor="name" className="block font-mono text-[0.55rem] tracking-[0.08em] text-text-muted mb-1.5 uppercase">
+                  Name
+                </label>
+                <input
+                  name="name"
+                  id="name"
+                  type="text"
+                  value={form.name}
+                  onChange={(event) => updateField('name', event.target.value)}
+                  className="w-full font-mono text-xs text-text-primary bg-[#050505] border border-border px-3.5 py-2.5 outline-none transition focus:border-primary-bright"
+                  required
+                />
               </div>
-            ) : null}
-          </motion.div>
 
-          <motion.div variants={fadeUp}>
-            <Button type="submit" className="w-full" disabled={submitting}>
-              {submitting ? 'Sending...' : 'Send Inquiry'}
-            </Button>
-          </motion.div>
-        </motion.form>
+              <div>
+                <label htmlFor="email" className="block font-mono text-[0.55rem] tracking-[0.08em] text-text-muted mb-1.5 uppercase">
+                  Email
+                </label>
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  value={form.email}
+                  onChange={(event) => updateField('email', event.target.value)}
+                  className="w-full font-mono text-xs text-text-primary bg-[#050505] border border-border px-3.5 py-2.5 outline-none transition focus:border-primary-bright"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="projectType" className="block font-mono text-[0.55rem] tracking-[0.08em] text-text-muted mb-1.5 uppercase">
+                  Project Type
+                </label>
+                <input
+                  name="projectType"
+                  id="projectType"
+                  type="text"
+                  value={form.projectType}
+                  onChange={(event) => updateField('projectType', event.target.value)}
+                  className="w-full font-mono text-xs text-text-primary bg-[#050505] border border-border px-3.5 py-2.5 outline-none transition focus:border-primary-bright"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block font-mono text-[0.55rem] tracking-[0.08em] text-text-muted mb-1.5 uppercase">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows={4}
+                  value={form.message}
+                  onChange={(event) => updateField('message', event.target.value)}
+                  className="w-full resize-none font-mono text-xs text-text-primary bg-[#050505] border border-border px-3.5 py-2.5 outline-none transition focus:border-primary-bright"
+                  required
+                />
+              </div>
+
+              {/* Status messages */}
+              <div aria-live="polite">
+                {submitting && (
+                  <div className="font-mono text-[0.6rem] border border-primary-dark bg-primary/5 text-primary px-3 py-2">
+                    TRANSMITTING DATA... PLEASE HOLD
+                  </div>
+                )}
+
+                {errors.length > 0 && (
+                  <div className="font-mono text-[0.6rem] border border-red-500/30 bg-red-500/5 text-red-400 p-3">
+                    <p className="font-bold mb-1">TRANSMISSION FAILED. ERRORS FOUND:</p>
+                    <ul className="list-disc pl-4 space-y-0.5">
+                      {errors.map((error) => (
+                        <li key={error}>{error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {success && (
+                  <div className="font-mono text-[0.6rem] border border-emerald-500/30 bg-emerald-500/5 text-emerald-400 px-3 py-2">
+                    TRANSMISSION SUCCESSFUL: {success.toUpperCase()}
+                  </div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn-primary w-full justify-center text-center cursor-pointer disabled:opacity-50"
+              >
+                {submitting ? 'TRANSMITTING...' : 'SEND INQUIRY →'}
+              </button>
+            </div>
+          </form>
+        </SectionReveal>
       </div>
     </section>
   );

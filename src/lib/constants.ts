@@ -45,26 +45,23 @@ export const technologies = [
 
 export const projects: Project[] = [
   {
-    title: 'Umbrella Library',
-    category: 'Platform Development',
+    title: 'Full Website Development',
+    category: 'Web Development',
     description:
-      'User-generated content platform for stories, novels, articles, and manga publishing.',
-    stack: ['Next.js', 'Firebase', 'TypeScript'],
-    image: '/projects/umbrella-library.svg',
+      'Full-stack web application development with modern technologies.',
+    stack: ['Next.js', 'Supabase', 'TypeScript'],
   },
   {
     title: 'Telegram Automation System',
     category: 'Bot Development',
     description: 'Automated Telegram workflows for notifications, moderation, and CRM-style flows.',
     stack: ['Node.js', 'Telegram API', 'TypeScript'],
-    image: '/projects/telegram-automation.svg',
   },
   {
     title: 'Cross Platform Mobile Application',
     category: 'Mobile Development',
     description: 'A performant mobile product built for Android and iOS with shared code architecture.',
     stack: ['React Native', 'Expo', 'Firebase'],
-    image: '/projects/mobile-app.svg',
   },
 ];
 
