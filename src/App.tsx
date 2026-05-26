@@ -5,7 +5,7 @@ import { Footer } from '@/components/footer/Footer';
 import { Hero } from '@/components/hero/Hero';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Process } from '@/components/process/Process';
-import { Services } from '@/components/services/Services';
+// import { Services } from '@/components/services/Services';
 import { Marquee } from '@/components/ui/Marquee';
 import { StatsTicker } from '@/components/ui/StatsTicker';
 import { Comparison } from '@/components/ui/Comparison';

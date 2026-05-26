@@ -1,4 +1,4 @@
-import { useEffect, useRef, ReactNode, HTMLAttributes } from 'react';
+import { useEffect, useRef, type ReactNode, type HTMLAttributes } from 'react';
 
 interface SectionRevealProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
