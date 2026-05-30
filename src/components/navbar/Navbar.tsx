@@ -15,13 +15,13 @@ export function Navbar() {
     <>
       <nav className={`nav ${scrolled ? 'bg-black/95' : 'bg-[#0a0a0ae0]'}`} aria-label="Main">
         <a href="#" className="nav-logo" aria-label="Umbrella Labs">
-          {/* <img
+          <img
             alt="Umbrella logo"
             width="24"
             height="24"
             style={{ width: '24px', height: '24px' }}
-            src="/logo-white.svg"
-          /> */}
+            src="/logo.png"
+          />
           <span>Umbrella Labs</span>
         </a>
         <div className="nav-links">
