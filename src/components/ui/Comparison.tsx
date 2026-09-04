@@ -68,10 +68,10 @@ function ComparisonRow({ label, oldValue, usValue, delay }: ComparisonRowProps) 
 
 export function Comparison() {
   const items = [
-    { label: 'Timeline', oldValue: '3–6 months', usValue: '1–3 weeks', delay: 0 },
-    { label: 'Team', oldValue: '8–15 people', usValue: '2–4 + AI agents', delay: 0.1 },
-    { label: 'Cost for founder', oldValue: '$80–250K', usValue: 'Case by case', delay: 0.2 },
-    { label: 'Iterations', oldValue: '2–3 per month', usValue: 'Daily deploys', delay: 0.3 },
+    { label: 'Timeline', oldValue: '3-6 months', usValue: '1-3 weeks', delay: 0 },
+    { label: 'Team', oldValue: '8-15 people', usValue: '2-4 + AI agents', delay: 0.1 },
+    { label: 'Cost for founder', oldValue: '$8-25K', usValue: 'Case by case', delay: 0.2 },
+    { label: 'Iterations', oldValue: '2-3 per month', usValue: 'Daily deploys', delay: 0.3 },
   ];
 
   return (
